@@ -4,17 +4,18 @@ const path = require("path");
 const fs = require("fs");
 const http = require("http");
 
-const bodyParser = require("body-parser");
-
 const app = express();
+
+const bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: false }));
 
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/admin", adminRoutes);
-app.use("/admin", shopRoutes);
+app.use(shopRoutes);
 
 // use allows to add new middleware functions: ORDER MATTERs
 // app.use((req, res, next) => {
