@@ -5,6 +5,8 @@ const path = require("path");
 const router = express.Router();
 const rootDir = require("../util/path");
 
+const products = [];
+
 // GET=> /admin/add-product
 router.get("/add-product", (req, res, next) => {
   console.log(" in another middle middleware");
@@ -18,6 +20,10 @@ router.get("/add-product", (req, res, next) => {
 //POST=> /admin/add-product
 router.post("/add-products", (req, res, next) => {
   console(req.body);
+  products.push({ title: req.body.title });
   res.redirect("/");
 });
-module.exports = router;
+
+// module.exports = router;
+exports.routes = router;
+exports.products = products;

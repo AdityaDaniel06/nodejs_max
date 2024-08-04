@@ -6,15 +6,18 @@ const http = require("http");
 
 const app = express();
 
+app.set("view engine", "pug");
+app.set("views", "views");
+
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const adminRoutes = require("./routes/admin");
+const adminData = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/admin", adminRoutes);
+app.use("/admin", adminData.routes);
 app.use(shopRoutes);
 
 // use allows to add new middleware functions: ORDER MATTERs
